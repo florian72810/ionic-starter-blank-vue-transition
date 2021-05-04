@@ -1,0 +1,7 @@
+{
+  "name": "demo-transition",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue"
+}
