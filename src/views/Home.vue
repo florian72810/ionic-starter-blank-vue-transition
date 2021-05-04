@@ -12,6 +12,24 @@
           <ion-title size="large">Blank</ion-title>
         </ion-toolbar>
       </ion-header>
+
+      <ion-button
+        @click="openModal"
+      >
+        Open Modal
+      </ion-button>
+
+      <ion-button
+        @click="openLoader"
+      >
+        Open Loading
+      </ion-button>
+
+      <ion-button
+        @click="openAction"
+      >
+        Open Action Sheet
+      </ion-button>
     
       <div id="container">
         <strong>Ready to create an app?</strong>
@@ -22,8 +40,9 @@
 </template>
 
 <script lang="ts">
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonButton, modalController, loadingController, actionSheetController, iosTransitionAnimation } from '@ionic/vue';
 import { defineComponent } from 'vue';
+import ExampleModalVue from './ExampleModal.vue';
 
 export default defineComponent({
   name: 'Home',
@@ -32,7 +51,37 @@ export default defineComponent({
     IonHeader,
     IonPage,
     IonTitle,
-    IonToolbar
+    IonToolbar,
+    IonButton
+  },
+  methods: {
+    openModal(): void {
+      modalController.create({
+        component: ExampleModalVue,
+        enterAnimation: iosTransitionAnimation,
+        leaveAnimation: iosTransitionAnimation
+      }).then(modal => modal.present());
+    },
+    openLoader(): void {
+      loadingController.create({
+        duration: 3000,
+        message: "3s loader"
+      }).then(loading => loading.present());
+    },
+    openAction(): void {
+      actionSheetController.create({
+        header: "Demo",
+        buttons: [
+          {
+              text: 'Delete',
+              role: 'destructive',
+              handler: () => {
+                console.log('Delete clicked')
+              },
+            }
+        ]
+      }).then(action => action.present());
+    }
   }
 });
 </script>
